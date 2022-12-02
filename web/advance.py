@@ -78,7 +78,7 @@ class APIHandler (Handler):
         #    else:
         #        self.ses.remove()
 
-        if self.ses.auto_save():
+        if self.ses and self.ses.auto_save():
             self.set_cookie('sid', self.ses.sid)
 
 

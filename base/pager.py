@@ -163,7 +163,7 @@ class PageDataDB (PageDataBase):
         # 没有统计页数的sql，说明不需要计算总共多少页
         #log.info("PageDataDB count sql:%s", self.count_sql)
         ret = self.db.query(self.count_sql)
-        row = ret[0]
+        row = ret[0] if ret else {'count': 0}
         self.records = int(row['count'])
         log.debug("PageDataDB count:%s", self.records)
         a = divmod(self.records, pagesize)
