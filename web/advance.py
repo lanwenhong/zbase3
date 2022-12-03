@@ -22,6 +22,7 @@ class APIHandler (Handler):
         name = self.req.path.split('/')[-1]
 
         self.ses = None
+        sid = None
         if self.session_conf:
             sid = self.get_cookie('sid')
             log.debug('sid: %s', sid)
