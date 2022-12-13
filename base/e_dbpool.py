@@ -165,7 +165,7 @@ class ESquery():
             "includes": includes,
             "excludes": excludes,
         }
-        if qfrom and qsize:
+        if qfrom is not None and qsize is not None:
             dsl['size'] = qsize
             dsl['from'] = qfrom
 

@@ -295,7 +295,7 @@ class ChunkedResponse(Response):
         try:
             statusstr = '%d %s' % (self.status, HTTP_STATUS_CODES.get(self.status, ''))
 
-            headers = self.headers.items()
+            headers = list(self.headers.items())
             # add cookie
             if self.cookies:
                 for c in self.cookies.values():
