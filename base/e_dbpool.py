@@ -303,7 +303,7 @@ class ESquery(object):
 
     @query_pack_ret
     def es_query_match_bool(self, index_name, key='must', cond=[], qfrom=None, qsize=None, includes=[], excludes=[],
-                            sort=None):
+                            sort=None, highlight=None):
         dsl = {
             "query": {
                 "bool": {
@@ -311,7 +311,7 @@ class ESquery(object):
                 }
             }
         }
-        return self.es_query(index_name, dsl, qfrom, qsize, includes, excludes, sort)
+        return self.es_query(index_name, dsl, qfrom, qsize, includes, excludes, sort, highlight)
 
 
 def e_install(ip_list=[], timeout=1000):
