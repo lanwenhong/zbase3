@@ -80,7 +80,9 @@ class APIHandler (Handler):
         #        self.ses.remove()
 
         if self.ses and self.ses.auto_save():
-            self.set_cookie('sid', self.ses.sid)
+            # cookie的设置应该放在登录接口成功后设置 不是每一次请求接口都设置
+            # self.set_cookie('sid', self.ses.sid)
+            pass
 
 
     def create_session(self):

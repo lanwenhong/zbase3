@@ -129,6 +129,7 @@ try:
         def __init__(self, sid=None, server=None, expire=3600, db=0, refresh_time=300):
             self.addr = server[0]['addr']
             self.timeout = server[0]['timeout']
+            self.password = server[0].get('password', '')
             self.db = db
             #self.conn = redis.Redis(host=addr[0], port=addr[1], socket_timeout=timeout, db=db)
             self.conn = None
@@ -137,7 +138,8 @@ try:
 
         def _check_conn(self):
             if not self.conn:
-                self.conn = redis.Redis(host=self.addr[0], port=self.addr[1], socket_timeout=self.timeout, db=self.db)
+                self.conn = redis.Redis(host=self.addr[0], port=self.addr[1],
+                                        socket_timeout=self.timeout, db=self.db, password=self.password)
             
         def _load(self):
             self._check_conn()
