@@ -39,8 +39,8 @@ def pack_ret(func):
         finally:
             endtm = time.time()
             conn = args[0]
-            log.info('server=%s|func=%s|index=%s|dsl=%s|time=%d|ret=%s', conn.host, func.__name__, conn.index, conn.dsl,
-                     int((endtm - starttm) * 1000000), ret)
+            log.info('server=%s|func=%s|index=%s|dsl=%s|time=%d|ret.succ=%s|ret.fail_reason=%s', conn.host, func.__name__, conn.index, conn.dsl,
+                     int((endtm - starttm) * 1000000), ret['succ'], ret['fail_reason'])
             return ret
 
     return _
@@ -66,8 +66,8 @@ def query_pack_ret(func):
         finally:
             endtm = time.time()
             conn = args[0]
-            log.info('server=%s|func=%s|index=%s|dsl=%s|time=%d|ret=%s', conn.host, func.__name__, conn.index, conn.dsl,
-                     int((endtm - starttm) * 1000000), ret)
+            log.info('server=%s|func=%s|index=%s|dsl=%s|time=%d|ret.succ=%s|ret.fail_reason=%s', conn.host, func.__name__, conn.index, conn.dsl,
+                     int((endtm - starttm) * 1000000), ret['succ'], ret['fail_reason'])
             return ret
 
     return _
