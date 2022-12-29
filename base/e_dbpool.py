@@ -169,7 +169,7 @@ class ESquery(object):
         result = self.es.update_by_query(index=index_name, body=dsl)
         return result
 
-    def __query_build(self, dsl, qfrom, qsize, includes, excludes, sort, highlight):
+    def __query_build(self, dsl, qfrom, qsize, includes, excludes, sort, highlight, collapse, aggs):
         dsl["_source"] = {
             "includes": includes,
             "excludes": excludes,
@@ -184,8 +184,14 @@ class ESquery(object):
         if highlight:
             dsl['highlight'] = highlight
 
-    def es_query(self, index_name, dsl, qfrom, qsize, includes, excludes, sort, highlight=None):
-        self.__query_build(dsl, qfrom, qsize, includes, excludes, sort, highlight)
+        if collapse:
+            dsl['collapse'] = collapse
+
+        if aggs:
+            dsl['aggs'] = aggs
+
+    def es_query(self, index_name, dsl, qfrom, qsize, includes, excludes, sort, highlight=None, collapse=None, aggs=None):
+        self.__query_build(dsl, qfrom, qsize, includes, excludes, sort, highlight, collapse, aggs)
         self.index = index_name
         self.dsl = dsl
         result = self.es.search(index=index_name, body=dsl)
@@ -303,7 +309,7 @@ class ESquery(object):
 
     @query_pack_ret
     def es_query_match_bool(self, index_name, key='must', cond=[], qfrom=None, qsize=None, includes=[], excludes=[],
-                            sort=None, highlight=None):
+                            sort=None, highlight=None, collapse=None, aggs=None):
         dsl = {
             "query": {
                 "bool": {
@@ -311,7 +317,7 @@ class ESquery(object):
                 }
             }
         }
-        return self.es_query(index_name, dsl, qfrom, qsize, includes, excludes, sort, highlight)
+        return self.es_query(index_name, dsl, qfrom, qsize, includes, excludes, sort, highlight, collapse, aggs)
 
 
 def e_install(ip_list=[], timeout=1000):

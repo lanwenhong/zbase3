@@ -110,7 +110,7 @@ class APIHandler (Handler):
         if data:
             obj['data'] = data
         s = json.dumps(obj)
-        log.info('succ: %s', s)
+        # log.info('succ: %s', s)
         self.write(s)
 
     def fail(self, ret=ERR, err='internal error', debug=''):
